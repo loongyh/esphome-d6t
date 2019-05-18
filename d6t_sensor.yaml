@@ -1,0 +1,22 @@
+esphome:
+  includes:
+    - d6t_44l_06.h
+  name: d6t_sensor
+  platform: ESP32
+  board: nodemcu-32s
+
+i2c:
+  sda: 21
+  scl: 22
+  scan: False
+
+binary_sensor:
+- platform: custom
+  lambda: |-
+    auto d6t_sensor = new D6T44L06BinarySensor();
+    App.register_component(d6t_sensor);
+    return {d6t_sensor};
+
+  binary_sensors:
+    name: "D6T Sensor"
+    device_class: occupancy
